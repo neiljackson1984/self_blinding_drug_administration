@@ -1,0 +1,87 @@
+
+
+Task 1: Produce a set of envelopes, each labeled with a serial number, each containing one pill, with half of the envelopes containing drug and half containing placebo, randomly distributed throughout the serial numbers, 
+with drug-containing envelope indistinguishable from placebo-containing envelope, at least to a naive observer (i.e. must not have the words "Drug" and "placebo" printed on envelopes in any human-readable way).
+
+Actually, the 'half' ratio is not strictly required.  The strict requirement is that there must be at least as many placebo-containing envelopes as planned dose-administration events and at 
+least as many drug-containing envelopes as planned dose-administration events,
+so that any map from administration events to {drug, placebo} can be realized using the stack of envelopes (either all drug, or all placebo, or anywhere in between).
+The 'half' ratio occurs when you have the minimum required quantity of each type of envelope.
+
+Here is the recipe to execute task 1:
+    task 1.1: prepare 2 jars, one containing drug tablets, one containing placebo tablets, with the drug 
+    tablets being outwardly indistinguishable from placebo tablets, and, ideally, with the tablet's nature 
+    concealed even against the act of swallowing;  It should be practically impossible to feel tablets in mouth with 
+    tongue and distinguish drug from placebo.  Our method for this is to use opaque 2-part gelatin capsules, which we will fill either with
+    dry rice alone to make the placebo capsule, or with rice and drug tablet to make the drug capsule.
+    other subtasks of task 1:
+    We need a label for each envelope that encodes the envelope serial number  in some way that is not human readable, and we need some
+    process that can convert the non-human readble label into a human-readable form at some later time.
+    Each envelope shall have a label that can be in (or be used in) one of two different modes: in one mode, 
+    the user must be able to "read" the label (possibly with computer assistance) to determine one of {drug, placebo}, but must not be able to
+    decipher the serial number of the envelope.  This is the mode that the label must be in during the envelope filling task.
+    Then, once envelope filling is complete, there must be some process to transform the label into a state where the user can 
+    "read off of" the label the envelope serial number, and cannot decipher the drug-or-placebo "content" of the label.
+    One can imagine hugely complicated and technical arrangements where, for instance, the computer is equipped with robotic actuators that can do all the envelope stuffing and label-writing
+    autonomously inside a sealed chamber and then open a hatch to drop a pile of finished envelopes into a bin for the patient to take home.  Such sophistication is unfeasible for the current project.
+    Another idea that we might entertain if the budget for technical wizardry were unconstrained is to equip each envelope with a microcontroller and a little onboard LCD display (clipped to the front of each envelope for instance).
+    Via radio command, the computer would assign a serial number to each microcontroller, and by radio command, would command the microcontroller to go into "envelope-stuffing state",
+    wherein the screen says either "DRUG" or "PLACEBO" with no sign of the serial number, and then, once envelope stuffing was finished, the computer would issue another radio command to the microcontroller
+    to command the microcontroller to go into "dose administration" state where the LCD screen would display the envelope's serial number only.
+    
+    Our method will be much less fantastic: we will print on each envelope (or on an adhesive label to be stuck to each envelope) a QR code encoding the envelope's serial number.
+    We assume that a human is able to read zero information from a QR code by visual inspection alone, so as far as the unaided human is concerned, each QR code is just a blob of visual static,
+    indistinguishable from any other QR code.  The human can hold the envelope up to a barcode scanner (or camera) attached to the computer, and the computer will be able to read 
+    the encoded serial number and present the human with the placebo-or-drug label.  This is the envelope filling mode.  To transform the label into does-administration mode,
+    the human holds the envelope up to the scanner and this time, the computer reveals the envelope serial number to the user (without showing the placebo-or-drug information). 
+    The user then writes the serial number, in human-readable form, on the envelope.  WE should probably encode the serial number along with some salt, so that each serial number translates to 
+    more than one QR code.
+    
+    *envelope label generator: the function that produces the labels (in the form of a multi-page pdf file, that can be easily printed onto a stack of blank envelopes.)
+    
+
+    ...
+
+The above are the physical tasks -- the rest is all informational.
+
+Note: The things that we must give the patient are:
+1) The aforementioned stack of envelopes.
+2) A list that maps dose administration events to envelope serial numbers.
+3) The instruction: at each dose administration event, ingest the contents of the envelope specified on the list.
+
+terms:
+*envelope stack: the aforementioned stack of envelopes (the envelope stack is a concrete, physical, object, and is the only concrete object in this scheme -- all the other elements could exist purely as computer files.)
+*dose schedule: a map from dose administration events to {drug, placebo}.
+*envelope schedule: a map from dose administration events to envelope serial numbers.
+*envelope manifest: a map from envelope serial numbers to {drug, placebo}.
+
+
+Task 1 is to produce an envelope stack and a corresponding envelope manifest in such a way that the envelope manifest is hidden from the patient.
+When it is the patient himself who must assemble the envelope stack and produce the envelope manifest, that is where things get tricky.
+We can rely on the patient to run some software that will produce a computer file, and then not scrutinize the contents of the computer file.
+The idea is that task 1 can be completed before, and independently of, the other tasks.
+
+We need a system that will take a dose schedule and envelope manifest as input, and will spit out an envelope schedule.
+The doctor would deliver the dose schedule to the patient (or to the system), in some form that we can trust the patient not to scrutinize.
+
+In the simple case, the doctor invents, autonomously, the dose schedule.
+A more elaborate "doctorless" case (or self-doctoring case) would be where the patient gives to the system some general specifications, 
+for instance: I want to take the drug for exactly 7 of the next 28 days, with those 7 days being consecutive.  The computer then 
+produces a random dose schedule conforming to the patient's specification.
+In either case, we end up with a dose schedule that can be fed into the system.
+We might handle both of these cases by having a "dose schedule composer tool"; something that takes some sort of specification for the dose schedule, more or less constrained
+(the specification could be as detailed as exactly specifying the dose schedule verbatim, or it could allow room for the computer to inject some randomness).  
+The verbatim specification mode would probably be preferred by the doctor (by which we mean some person other than the patient who is guiding the experiment),
+whereas if the patient is composing the does schedule, the patient would want to specify constraints that leave some room for computer-generated randomness.
+
+*dose schedule specification: a description of a desired dose schedule that leaves some (possibly zero) amount of room for computer-generated randomness.  The dose schedule specification is given as input to the dose schedule composer, which injects randomness as needed, and produces as output a dose schedule.
+*dose schedule composer: a function that takes a dose schedule specification as input, and produces a dose schedule as output, in the process injecting randomness as needed.  (We need some sort of a user interface to help the user write the dose schedule specification and feed it into the dose schedule composer).
+*envelope schedule generator (need to come up with better name): a function that takes a dose schedule and envelope manifest as input and spits out an envelope schedule.
+
+
+
+
+
+
+
+
