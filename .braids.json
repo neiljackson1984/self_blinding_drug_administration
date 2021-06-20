@@ -1,0 +1,10 @@
+{
+  "config_version": 1,
+  "mirrors": {
+    "braids/barcap": {
+      "url": "https://github.com/Barmaley13/barcap",
+      "branch": "master",
+      "revision": "4354c5ac8f1b28f8303fe6b76bba09485531a6e6"
+    }
+  }
+}
