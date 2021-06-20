@@ -1,0 +1,25 @@
+{
+    "_meta": {
+        "hash": {
+            "sha256": "f38b0ccd3a6ca3b9a1c4388fc92fa0b9f9d363a56728154a09cd06bbcc14def9"
+        },
+        "pipfile-spec": 6,
+        "requires": {
+            "python_version": "3.8"
+        },
+        "sources": [
+            {
+                "name": "pypi",
+                "url": "https://pypi.org/simple",
+                "verify_ssl": true
+            }
+        ]
+    },
+    "default": {
+        "barcap": {
+            "path": "./braids/barcap",
+            "version": "==0.2.7"
+        }
+    },
+    "develop": {}
+}

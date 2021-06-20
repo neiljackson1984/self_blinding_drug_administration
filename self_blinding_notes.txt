@@ -78,6 +78,26 @@ whereas if the patient is composing the does schedule, the patient would want to
 *dose schedule composer: a function that takes a dose schedule specification as input, and produces a dose schedule as output, in the process injecting randomness as needed.  (We need some sort of a user interface to help the user write the dose schedule specification and feed it into the dose schedule composer).
 *envelope schedule generator (need to come up with better name): a function that takes a dose schedule and envelope manifest as input and spits out an envelope schedule.
 
+#encountering some king of depnedncy error when attempting to install barcap via "pipenv install barcap"
+# the problem seems to be with the opencv-contrib-python version specified in barcaps requirements.txt file.
+# workaround: 
+
+braid add https://github.com/Barmaley13/barcap braids/barcap
+# I went and edited ./braids/barcap/dependencies.txt so as to remove the "opencv-python..." line (leaving the "opencv-contrib-python...")
+# because the opencv documentation seems to imply that one should not install both packages simultanbesouyl and that opencv-contrib-python
+# contains a superset of the fuinctionality of opencv-python.  And so as to remove all version specifiers.
+
+pipenv install ./braids/barcap
+# this resulted in pipenv completing the installation without errors, but it is an open question whether barcap will work after
+# having loosened the dependency version requirements.
+
+# pipenv install opencv-contrib-python
+# pipenv install pyzbar==0.1.8
+# pipenv install pylibdmtx==0.1.9
+# pipenv install pytesseract==0.3.2
+
+pipenv run python -m barcap
+# SUCCESS!  Performs as advertised!
 
 
 
