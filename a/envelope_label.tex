@@ -1,0 +1,53 @@
+\documentclass{article}
+
+\usepackage[paperwidth=4in,  paperheight=3in, vmargin={0.07in,0.07in}, hmargin=0.1in]{geometry}
+%\usepackage{color}
+
+\usepackage{fontspec} \setmainfont{Consolas}
+\usepackage{calc}
+\usepackage{array}
+\usepackage{textcomp}
+\usepackage{pst-barcode}
+
+%BEGIN REPLACEMENT
+   % This section between the "%BEGIN REPLACEMENT" and "%END REPLACEMENT"
+   % will be replaced by teh external script to define the variables below
+   \def\labelText{AUPN9991}
+%END REPLACEMENT
+
+
+
+
+
+
+
+\def\humanReadableFontSize{40}
+
+ 
+\newcommand{\humanReadableFont}{\fontsize{\humanReadableFontSize}{\humanReadableFontSize}\fontspec{Consolas Bold}}
+
+\newcommand{\independentLayer}[1]
+{%
+   \hbox to 0pt
+  {%
+  	\vbox to \vsize {#1}	
+  	\hss
+  }\relax%
+}
+
+\newcommand{\hSpacer}[1]
+{%
+   \hbox to {#1} {\vbox to 0pt \hss}\relax%
+}
+
+
+\begin{document}
+	\vskip0.015in
+	\noindent\hrule height 0.01in
+	\vfil
+	\noindent\hskip0.1in\begin{pspicture}(1.85in, 0.42in)%	
+		% \psbarcode[]{\labelText}{width=1.85 height=0.42}{qrcode}%
+		\psbarcode[scalex=2,scaley=2]{\labelText}{format=full eclevel=M version=4 parse}{qrcode}%
+	\end{pspicture}\hfil
+	\vfilneg
+\end{document}
