@@ -62,6 +62,7 @@ class CaptureProcess(Process, ABC):
         self._new = Value('b', False)
         self._stop = Value('b', False)
         self._last_epoch = Value('f')
+        self._capture_count = Value('l')
 
     # Internal methods
     def run(self):
@@ -164,6 +165,7 @@ class CaptureProcess(Process, ABC):
 
             # Record the time
             self._last_epoch.value = time.time()
+        
 
             # Set new capture flag
             self._new.value = True

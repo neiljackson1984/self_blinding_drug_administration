@@ -9,6 +9,7 @@ venv:=$(shell cd "$(abspath $(dir ${pathOfDeployScript}))" > /dev/null 2>&1; pip
 
 default: |  ${venv}
 	@echo "====== running $(pathOfDeployScript) ======="
+	# @echo "venv is ${venv} ======="
 	cd "$(abspath $(dir ${pathOfDeployScript}))"; \
 	pipenv run python "$(notdir ${pathOfDeployScript})" \
 
